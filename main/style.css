@@ -5,6 +5,8 @@
     --navy: #0F1F3D;
     --navy-mid: #1E3560;
     --navy-light: #E8EDF7;
+    --red: rgba(255,100,100,0.7);
+    --dark-red: rgba(150,0,0,1);
     --white: #FAFAF8;
     --text: #1A1A2E;
     --text-muted: #5A6480;
@@ -33,7 +35,7 @@ header {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(250, 250, 248, 0.92);
+    background: var(--navy);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
     padding: 0 2rem;
@@ -43,10 +45,11 @@ header {
     height: 60px;
 }
 
+
 .logo {
     font-family: 'DM Serif Display', serif;
     font-size: 1.5rem;
-    color: var(--navy);
+    color: var(--navy-light); 
     letter-spacing: -0.02em;
 }
 
@@ -71,8 +74,8 @@ header {
 }
 
 .login-btn {
-    background: var(--navy);
-    color: #fff;
+    background: var(--gold);
+    color: var(--navy);
     border: none;
     border-radius: var(--radius-sm);
     padding: 8px 20px;
@@ -88,7 +91,7 @@ header {
 }
 
 .login-btn:hover {
-    background: var(--navy-mid);
+    background: var(--gold-dark);
 }
 
 .login-btn:active {
@@ -210,6 +213,13 @@ header {
     background: currentColor;
     opacity: 0.6;
 }
+
+.pchip.in-work {
+    background: var(--red);
+    color: var(--dark-red);
+    width: inherit;
+}
+
 
 /* ── SECTION LABEL ── */
 .section-label {
