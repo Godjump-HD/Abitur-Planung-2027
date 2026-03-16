@@ -1,5 +1,4 @@
 function test(){
   const user = localStorage.getItem("abi_user");
-  const btn = document.getElementById("loginBtn").innerText = user;
-  body.style.background = "red";
+  const btn = document.getElementById("testUser").innerText += user;
 }
