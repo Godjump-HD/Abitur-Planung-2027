@@ -1,199 +1,251 @@
 <!DOCTYPE html>
+
 <html lang="de">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AbiHub – Admin</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="admin.css">
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AbiHub – Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold:#C9952A;--gold-light:#F5E4B8;--gold-dark:#8B6318;
+    --navy:#0F1F3D;--navy-mid:#1E3560;--navy-light:#E8EDF7;
+    --white:#FAFAF8;--text:#1A1A2E;--text-muted:#5A6480;
+    --border:rgba(15,31,61,0.12);
+    --radius:14px;--radius-sm:9px;
+    --green:#2D7A4F;--green-bg:#E6F4EC;
+    --red:#C0392B;--red-bg:#FDECEA;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F2F4F8;color:var(--text);min-height:100vh;}
 
+.sidebar{position:fixed;top:0;left:0;width:220px;height:100vh;background:var(–navy);display:flex;flex-direction:column;padding:1.6rem 1.2rem;z-index:50;}
+.sidebar-logo{font-family:‘DM Serif Display’,serif;font-size:1.4rem;color:#fff;margin-bottom:.3rem;}
+.sidebar-logo span{color:var(–gold);}
+.sidebar-role{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:2rem;}
+.nav-label{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin:1.2rem 0 .5rem .4rem;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(–radius-sm);color:rgba(255,255,255,.65);font-size:.88rem;text-decoration:none;cursor:pointer;transition:background .15s,color .15s;border:none;background:none;width:100%;text-align:left;}
+.nav-item:hover{background:rgba(255,255,255,.08);color:#fff;}
+.nav-item.active{background:rgba(201,149,42,.18);color:var(–gold);}
+.sidebar-footer{margin-top:auto;border-top:1px solid rgba(255,255,255,.08);padding-top:1rem;}
+.sidebar-user{display:flex;align-items:center;gap:10px;padding:8px 4px;}
+.avatar{width:32px;height:32px;border-radius:50%;background:rgba(201,149,42,.25);display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:600;color:var(–gold);flex-shrink:0;}
+.user-name{font-size:.84rem;font-weight:500;color:#fff;}
+.user-role-badge{font-size:.65rem;font-weight:600;padding:1px 7px;border-radius:10px;background:rgba(201,149,42,.2);color:var(–gold);display:inline-block;margin-top:2px;}
+
+.main{margin-left:220px;padding:2.5rem;min-height:100vh;}
+.page-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;}
+.page-header h1{font-family:‘DM Serif Display’,serif;font-size:1.8rem;color:var(–navy);letter-spacing:-.02em;}
+.page-header p{font-size:.88rem;color:var(–text-muted);margin-top:2px;}
+
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:var(–radius-sm);font-family:‘DM Sans’,sans-serif;font-size:.88rem;font-weight:500;cursor:pointer;border:none;transition:background .15s,transform .1s;text-decoration:none;}
+.btn:active{transform:scale(.98);}
+.btn-primary{background:var(–navy);color:#fff;}
+.btn-primary:hover{background:var(–navy-mid);}
+.btn-danger{background:var(–red-bg);color:var(–red);}
+.btn-danger:hover{background:#f8ccc8;}
+.btn-sm{padding:6px 14px;font-size:.8rem;}
+
+.stats-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem;margin-bottom:2rem;}
+.stat-card{background:#fff;border:1px solid var(–border);border-radius:var(–radius);padding:1.2rem 1.4rem;}
+.stat-label{font-size:.75rem;color:var(–text-muted);font-weight:500;margin-bottom:.3rem;}
+.stat-value{font-size:1.8rem;font-weight:600;color:var(–navy);line-height:1;}
+.stat-sub{font-size:.75rem;color:var(–text-muted);margin-top:4px;}
+
+.card{background:#fff;border:1px solid var(–border);border-radius:var(–radius);overflow:hidden;}
+.card-header{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;border-bottom:1px solid var(–border);flex-wrap:wrap;gap:.8rem;}
+.card-header h2{font-size:1rem;font-weight:500;color:var(–navy);}
+.search-input{padding:8px 14px;border:1.5px solid var(–border);border-radius:var(–radius-sm);font-family:‘DM Sans’,sans-serif;font-size:.85rem;outline:none;width:220px;transition:border-color .2s;}
+.search-input:focus{border-color:var(–navy);}
+
+table{width:100%;border-collapse:collapse;}
+th{text-align:left;padding:10px 1.5rem;font-size:.75rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(–text-muted);background:#F8F9FB;border-bottom:1px solid var(–border);}
+td{padding:13px 1.5rem;font-size:.88rem;color:var(–text);border-bottom:1px solid rgba(15,31,61,.06);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:#FAFBFD;}
+
+.role-badge{display:inline-block;font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.04em;margin:1px;}
+.role-admin{background:rgba(15,31,61,.1);color:var(–navy);}
+.role-moderator{background:var(–gold-light);color:var(–gold-dark);}
+.role-user{background:var(–navy-light);color:var(–navy-mid);}
+.role-komitee{background:#F5E8F2;color:#6B2459;}
+
+.status-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;}
+.status-active{background:var(–green);}
+.status-inactive{background:#CCC;}
+.actions{display:flex;gap:6px;}
+
+/* ── MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(10,20,40,.5);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.modal-overlay.show{display:flex;}
+.modal{background:#fff;border-radius:var(–radius);padding:2rem;width:100%;max-width:480px;margin:1rem;animation:fadeUp .25s ease;max-height:90vh;overflow-y:auto;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.modal h3{font-family:‘DM Serif Display’,serif;font-size:1.4rem;color:var(–navy);margin-bottom:.3rem;}
+.modal p{font-size:.88rem;color:var(–text-muted);margin-bottom:1.5rem;}
+
+.form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.1rem;}
+.form-group label{font-size:.8rem;font-weight:500;color:var(–text);}
+.form-group input,.form-group select{padding:10px 13px;border:1.5px solid var(–border);border-radius:var(–radius-sm);font-family:‘DM Sans’,sans-serif;font-size:.9rem;outline:none;transition:border-color .2s;background:#fff;color:var(–text);}
+.form-group input:focus,.form-group select:focus{border-color:var(–navy);}
+
+.roles-section{margin-bottom:1.1rem;}
+.roles-label{font-size:.8rem;font-weight:500;color:var(–text);margin-bottom:.6rem;}
+.roles-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;}
+.role-check{display:flex;align-items:center;gap:8px;padding:7px 10px;border:1.5px solid var(–border);border-radius:var(–radius-sm);cursor:pointer;transition:all .15s;font-size:.82rem;color:var(–text-muted);}
+.role-check:hover{border-color:var(–navy);color:var(–navy);}
+.role-check input[type=checkbox]{width:15px;height:15px;cursor:pointer;accent-color:var(–navy);}
+.role-check.checked{background:var(–navy-light);border-color:var(–navy);color:var(–navy);font-weight:500;}
+
+.modal-actions{display:flex;gap:.8rem;justify-content:flex-end;margin-top:1.5rem;}
+.btn-ghost{background:none;border:1.5px solid var(–border);color:var(–text-muted);padding:10px 20px;border-radius:var(–radius-sm);font-family:‘DM Sans’,sans-serif;font-size:.88rem;cursor:pointer;transition:border-color .2s;}
+.btn-ghost:hover{border-color:var(–navy);color:var(–navy);}
+
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(–navy);color:#fff;padding:12px 20px;border-radius:var(–radius-sm);font-size:.88rem;font-weight:500;box-shadow:0 8px 24px rgba(15,31,61,.2);transform:translateY(80px);opacity:0;transition:transform .3s,opacity .3s;z-index:300;display:flex;align-items:center;gap:8px;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.success{background:var(–green);}
+.toast.error{background:var(–red);}
+
+@media(max-width:700px){.sidebar{display:none;}.main{margin-left:0;padding:1.5rem 1rem;}}
+</style>
+
+</head>
 <body>
 
-    <!-- SIDEBAR -->
-    <nav class="sidebar">
-        <div class="sidebar-logo">Abi<span>Hub</span></div>
-        <div class="sidebar-role">Admin Panel</div>
-
-        <div class="nav-label">Verwaltung</div>
-        <button class="nav-item active" onclick="showTab('users')">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                <circle cx="9" cy="7" r="4" />
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-            </svg>
-            Nutzerverwaltung
-        </button>
-
-        <div class="nav-label">Module</div>
-        <a class="nav-item" href="https://abistreichevotingfrontend.pages.dev">
-            <span style="font-size:14px">🎭</span> Abistreiche
-        </a>
-        <a class="nav-item" href="/finance.html">
-            <span style="font-size:14px">💰</span> Finanzen
-        </a>
-        <a class="nav-item" href="/hoodie">
-            <span style="font-size:14px">👕</span> Abihoodie
-        </a>
-        <a class="nav-item" href="/mottowoche">
-            <span style="font-size:14px">🎉</span> Mottowoche
-        </a>
-
-        <div class="nav-label">System</div>
-        <a class="nav-item" href="/index.html">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-            </svg>
-            Startseite
-        </a>
-
-        <div class="sidebar-footer">
-            <div class="sidebar-user">
-                <div class="avatar" id="sidebarAvatar">AD</div>
-                <div>
-                    <div class="user-name" id="sidebarName">Admin</div>
-                    <span class="user-role-badge">Admin</span>
-                </div>
-            </div>
-            <button class="nav-item" style="margin-top:0.4rem" onclick="logout()">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                    <polyline points="16 17 21 12 16 7" />
-                    <line x1="21" y1="12" x2="9" y2="12" />
-                </svg>
-                Ausloggen
-            </button>
-        </div>
-    </nav>
-
-    <!-- MAIN -->
-    <main class="main" id="mainContent">
-
-        <div class="page-header">
-            <div>
-                <h1>Nutzerverwaltung</h1>
-                <p>Accounts anlegen, bearbeiten und Rollen vergeben.</p>
-            </div>
-            <button class="btn btn-primary" onclick="openCreateModal()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <line x1="12" y1="5" x2="12" y2="19" />
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                </svg>
-                Nutzer anlegen
-            </button>
-        </div>
-
-        <!-- STATS -->
-        <div class="stats-row" id="statsRow">
-            <div class="stat-card">
-                <div class="stat-label">Gesamt</div>
-                <div class="stat-value" id="statTotal">–</div>
-                <div class="stat-sub">Registrierte Nutzer</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Aktiv</div>
-                <div class="stat-value" id="statActive">–</div>
-                <div class="stat-sub">Aktive Accounts</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Admins</div>
-                <div class="stat-value" id="statAdmins">–</div>
-                <div class="stat-sub">Admin-Accounts</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Moderatoren</div>
-                <div class="stat-value" id="statMods">–</div>
-                <div class="stat-sub">Moderator-Accounts</div>
-            </div>
-        </div>
-
-        <!-- USER TABLE -->
-        <div class="card">
-            <div class="card-header">
-                <h2>Alle Nutzer</h2>
-                <input class="search-input" type="text" placeholder="Suchen..." id="searchInput"
-                    oninput="filterUsers()">
-            </div>
-            <table id="userTable">
-                <thead>
-                    <tr>
-                        <th>Nutzer</th>
-                        <th>Benutzername</th>
-                        <th>Rolle</th>
-                        <th>Status</th>
-                        <th>Erstellt</th>
-                        <th>Aktionen</th>
-                    </tr>
-                </thead>
-                <tbody id="userTableBody">
-                    <tr>
-                        <td colspan="6" style="text-align:center;padding:2rem;color:var(--text-muted)">Lade Nutzer...
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-    </main>
-
-    <!-- CREATE/EDIT MODAL -->
-    <div class="modal-overlay" id="userModal">
-        <div class="modal">
-            <h3 id="modalTitle">Nutzer anlegen</h3>
-            <p id="modalSubtitle">Erstelle einen neuen Account. Das Passwort wird beim ersten Login geändert.</p>
-
-            <div class="form-group">
-                <label>Vollständiger Name</label>
-                <input type="text" id="fieldName" placeholder="Max Mustermann">
-            </div>
-            <div class="form-group">
-                <label>Benutzername</label>
-                <input type="text" id="fieldUsername" placeholder="max.mustermann">
-            </div>
-            <div class="form-group">
-                <label>Passwort (temporär)</label>
-                <input type="text" id="fieldPassword" placeholder="Temporäres Passwort">
-            </div>
-            <div class="form-group">
-                <label>Rolle</label>
-                <select id="fieldRole">
-                    <option value="user">Nutzer</option>
-                    <option value="moderator">Moderator</option>
-                    <option value="admin">Admin</option>
-                </select>
-            </div>
-
-            <div class="modal-actions">
-                <button class="btn-ghost" onclick="closeModal()">Abbrechen</button>
-                <button class="btn btn-primary" id="modalSubmitBtn" onclick="submitUser()">
-                    Nutzer anlegen
-                </button>
-            </div>
-        </div>
+<nav class="sidebar">
+  <div class="sidebar-logo">Abi<span>Hub</span></div>
+  <div class="sidebar-role">Admin Panel</div>
+  <div class="nav-label">Verwaltung</div>
+  <button class="nav-item active">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    Nutzerverwaltung
+  </button>
+  <div class="nav-label">Module</div>
+  <a class="nav-item" href="/abistreiche/index.html"><span style="font-size:14px">🎭</span> Abistreiche</a>
+  <a class="nav-item" href="/finanzen/finanzen.html"><span style="font-size:14px">💰</span> Finanzen</a>
+  <a class="nav-item" href="/hoodie/hoodie.html"><span style="font-size:14px">👕</span> Abihoodie</a>
+  <a class="nav-item" href="/mottowoche/mottowoche.html"><span style="font-size:14px">🎉</span> Mottowoche</a>
+  <div class="nav-label">System</div>
+  <a class="nav-item" href="/index.html">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+    Startseite
+  </a>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="avatar" id="sidebarAvatar">AD</div>
+      <div>
+        <div class="user-name" id="sidebarName">Admin</div>
+        <span class="user-role-badge">Admin</span>
+      </div>
     </div>
+    <button class="nav-item" style="margin-top:.4rem" onclick="logout()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Ausloggen
+    </button>
+  </div>
+</nav>
 
-    <!-- DELETE CONFIRM MODAL -->
-    <div class="modal-overlay" id="deleteModal">
-        <div class="modal">
-            <h3>Nutzer löschen?</h3>
-            <p id="deleteModalText">Dieser Account wird dauerhaft gelöscht. Dieser Vorgang kann nicht rückgängig gemacht
-                werden.</p>
-            <div class="modal-actions">
-                <button class="btn-ghost" onclick="closeDeleteModal()">Abbrechen</button>
-                <button class="btn btn-danger" id="confirmDeleteBtn">Löschen</button>
-            </div>
-        </div>
+<main class="main">
+  <div class="page-header">
+    <div>
+      <h1>Nutzerverwaltung</h1>
+      <p>Accounts anlegen, Rollen & Komitees vergeben.</p>
     </div>
+    <button class="btn btn-primary" onclick="openCreateModal()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Nutzer anlegen
+    </button>
+  </div>
 
-    <!-- TOAST -->
-    <div class="toast" id="toast"></div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-label">Gesamt</div><div class="stat-value" id="statTotal">–</div><div class="stat-sub">Nutzer</div></div>
+    <div class="stat-card"><div class="stat-label">Aktiv</div><div class="stat-value" id="statActive">–</div><div class="stat-sub">Aktive Accounts</div></div>
+    <div class="stat-card"><div class="stat-label">Admins</div><div class="stat-value" id="statAdmins">–</div><div class="stat-sub">Admin-Accounts</div></div>
+    <div class="stat-card"><div class="stat-label">Komitees</div><div class="stat-value" id="statKomitee">–</div><div class="stat-sub">Komitee-Mitglieder</div></div>
+  </div>
 
-    <script src="admin.js"></script>
+  <div class="card">
+    <div class="card-header">
+      <h2>Alle Nutzer</h2>
+      <input class="search-input" type="text" placeholder="Suchen..." id="searchInput" oninput="filterUsers()">
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Nutzer</th>
+          <th>Benutzername</th>
+          <th>Basis-Rolle</th>
+          <th>Komitees</th>
+          <th>Status</th>
+          <th>Aktionen</th>
+        </tr>
+      </thead>
+      <tbody id="userTableBody">
+        <tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text-muted)">Lade Nutzer...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<!-- CREATE/EDIT MODAL -->
+
+<div class="modal-overlay" id="userModal">
+  <div class="modal">
+    <h3 id="modalTitle">Nutzer anlegen</h3>
+    <p id="modalSubtitle">Erstelle einen neuen Account und weise Komitee-Rollen zu.</p>
+
+```
+<div class="form-group">
+  <label>Vollständiger Name</label>
+  <input type="text" id="fieldName" placeholder="Max Mustermann">
+</div>
+<div class="form-group">
+  <label>Benutzername</label>
+  <input type="text" id="fieldUsername" placeholder="max.mustermann">
+</div>
+<div class="form-group">
+  <label>Passwort</label>
+  <input type="text" id="fieldPassword" placeholder="Temporäres Passwort">
+</div>
+<div class="form-group">
+  <label>Basis-Rolle</label>
+  <select id="fieldRole">
+    <option value="user">Nutzer</option>
+    <option value="moderator">Moderator</option>
+    <option value="admin">Admin</option>
+  </select>
+</div>
+
+<div class="roles-section">
+  <div class="roles-label">Komitee-Rollen (mehrere möglich)</div>
+  <div class="roles-grid" id="komiteeCheckboxes"></div>
+</div>
+
+<div class="modal-actions">
+  <button class="btn-ghost" onclick="closeModal()">Abbrechen</button>
+  <button class="btn btn-primary" id="modalSubmitBtn" onclick="submitUser()">Nutzer anlegen</button>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- DELETE MODAL -->
+
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal">
+    <h3>Nutzer löschen?</h3>
+    <p id="deleteModalText">Dieser Account wird dauerhaft gelöscht.</p>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeDeleteModal()">Abbrechen</button>
+      <button class="btn btn-danger" id="confirmDeleteBtn">Löschen</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="admin.js"></script>
+
 </body>
-
 </html>
