@@ -50,7 +50,8 @@
     //Change
       if(roles.includes('admin')){
         cta.textContent = 'Zum Dashboard';
-        cta.href = roles.includes('admin') ? '/admin/admin.html' : '#';
+        //cta.href = roles.includes('admin') ? '/admin/admin.html' : '#';
+        cta.href = '/admin/admin.html';
       } else {
         cta.style.display = 'none';
       }
