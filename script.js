@@ -46,8 +46,16 @@
     // Login-Button & CTA verstecken / anpassen
     document.getElementById('loginBtn').style.display = 'none';
     const cta = document.getElementById('heroCta');
-    cta.textContent = 'Zum Dashboard';
-    cta.href = roles.includes('admin') ? '/admin/admin.html' : '#';
+
+    //Change
+    Object.entries(MODULE_ROLE_MAP).forEach(([module, role]) => {
+      if(roles.includes('admin')){
+        cta.textContent = 'Zum Dashboard';
+        cta.href = roles.includes('admin') ? '/admin/admin.html' : '#';
+      } else {
+        cta.style.display ? 'none';
+      }
+    });
 
     // Komitee-Badges auf Karten anzeigen
     Object.entries(MODULE_ROLE_MAP).forEach(([module, role]) => {
