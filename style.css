@@ -76,7 +76,7 @@ font-family: ‘DM Sans’, sans-serif;
 .logout-btn:hover { color: #fff; }
 
 .login-btn {
-background: var(--navy); color: #fff;
+background: var(--gold); color: #000;
 border: none; border-radius: var(--radius-sm);
 padding: 8px 20px;
 font-family: ‘DM Sans’, sans-serif;
@@ -85,7 +85,7 @@ cursor: pointer; transition: background 0.2s;
 text-decoration: none; display: inline-flex;
 align-items: center; gap: 6px;
 }
-.login-btn:hover { background: var(--navy-mid); }
+.login-btn:hover { background: var(--gold-dark); }
 
 /* ── HERO ── */
 .hero {
