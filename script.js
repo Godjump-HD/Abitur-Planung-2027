@@ -49,7 +49,7 @@
 
     //Change
     Object.entries(MODULE_ROLE_MAP).forEach(([module, role]) => {
-      if(roles.includes('admin')){
+      if(role.includes('admin')){
         cta.textContent = 'Zum Dashboard';
         cta.href = roles.includes('admin') ? '/admin/admin.html' : '#';
       } else {
