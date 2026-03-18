@@ -53,7 +53,7 @@
         cta.textContent = 'Zum Dashboard';
         cta.href = roles.includes('admin') ? '/admin/admin.html' : '#';
       } else {
-        cta.style.display ? 'none';
+        cta.style.display = 'none';
       }
     });
 
