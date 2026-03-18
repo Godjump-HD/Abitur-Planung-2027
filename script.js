@@ -48,14 +48,12 @@
     const cta = document.getElementById('heroCta');
 
     //Change
-    Object.entries(MODULE_ROLE_MAP).forEach(([module, role]) => {
       if(roles.includes('admin')){
         cta.textContent = 'Zum Dashboard';
         cta.href = roles.includes('admin') ? '/admin/admin.html' : '#';
       } else {
         cta.style.display = 'none';
       }
-    });
 
     // Komitee-Badges auf Karten anzeigen
     Object.entries(MODULE_ROLE_MAP).forEach(([module, role]) => {
