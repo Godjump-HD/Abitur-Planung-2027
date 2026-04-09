@@ -3,7 +3,7 @@ async function upload() {
   if (!file) return alert("Bitte Datei auswählen");
 
   // 🔐 Auth vom Worker holen
-  const auth = await fetch("https://DEIN-WORKER-URL/auth", {
+  const auth = await fetch("https://abiturplanung2027-database.lostixd8.workers.dev/api/auth", {
     headers: {
       Authorization: "mein-geheimes-passwort"
     }
