@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AbiHub – Seitenname</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="monument.css">
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       HEADER – nur Emoji & Titel ändern
+  ══════════════════════════════════════════ -->
+
+  <header>
+    <div class="header-left">
+      <a href="/index.html" class="back-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"/></svg>
+        AbiHub
+      </a>
+      <div class="header-divider"></div>
+      <div class="header-title">🏛️ Abimonument</div>  <!-- ← anpassen -->
+    </div>
+    <div class="header-user" id="headerUser" style="display:none">
+      <div class="user-chip" id="headerUsername"></div>
+      <button class="btn-logout" onclick="logout()">Ausloggen</button>
+    </div>
+  </header>
+  <main class="main">
+
+
+<!-- PAGE HEADING -->
+<div class="page-heading">
+  <div>
+    <h1>🏛️ Abimonument</h1>                          <!-- ← anpassen -->
+    <p>Vorschläge für Abimonumente und Abstimmung darüber</p>           <!-- ← anpassen -->
+  </div>
+  
+</div>
+<!-- ZWEISPALTIGES LAYOUT -->
+<div class="grid-layout">
+
+  <!-- LINKE / HAUPT-SPALTE -->
+  <div class="col-main">
+
+    <!-- Karte mit Filterleiste + Liste -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Vorschläge für Monumente</h2>
+        <span class="count-badge" id="listCount">0</span>
+      </div>
+      <div class="item-list" id="itemList">
+        <div class="empty-state">
+          <div class="empty-icon">📋</div>
+          <div>Noch keine Einträge vorhanden.</div>
+        </div>
+      </div>
+    </div>
+	</div>
+<div class="col-side">
+    <div class="card sticky-panel">
+      <div class="card-header">
+        <h2>Neuer Vorschlag</h2>
+      </div>
+      <div class="card-body">
+			<div class="form-group">
+				<label>Name</label>
+				<input type="text" placeholder="Name *optional*">
+			</div>
+        <div class="form-group">
+          <label>Titel</label>
+          <input type="text" placeholder="Ein passender Titel...">
+        </div>
+			<div class="form-group">
+				<label>
+					<img src="file-upload.PNG" width="25"> Datei hochladen
+				</label>
+				<input type="file" id="file-upload">
+        </div>
+        <div class="form-group">
+          <label>Beschreibung / Änderung</label>
+          <textarea placeholder="Füge eine Beschreibung oder eine Änderungsidee hinzu..."></textarea>
+        </div>
+
+        <button class="btn btn-primary btn-full">Speichern</button>
+
+      </div>
+    </div>
+  </div>
+
+</div>
